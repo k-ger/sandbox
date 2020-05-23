@@ -1,0 +1,226 @@
+body {
+    height: 100vh;
+    display: flex;
+    margin: 0;
+}
+
+#mapid { height: 400px; }
+
+.hide {
+    display: none;
+}
+
+.left-col {
+    height: 100%;
+    width: 200px;
+    padding: 15px;
+    color: #EEE;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    box-shadow: 2px 2px 4px #000A;
+    z-index: 1;
+    position: fixed;
+}
+
+.left-col > p {
+    color: #FFF;
+    font-size: 16px;
+    margin-top: 4px;
+    padding: 8px;
+    background: #FFF3;
+    box-shadow: 1px 2px 2px #3333;
+    text-align: center;
+    border-radius: 2px;
+    font-family: Lucida Console;
+}
+
+.green-back {
+    background: rgb(13, 146, 160);    
+}
+.red-back {
+    background: rgb(162, 32, 75);
+}
+
+button.left-col-button {
+    border-radius: 4px;
+    border: unset;
+    padding: 5px 8px;
+    margin: 8px 4px 8px 4px;
+    box-shadow: 2px 2px 3px #0006;
+    transition: padding 0.15s ease-in-out;
+    opacity: 0.75;
+    font-family: Lucida Console;
+}
+button.left-col-button:hover {
+    cursor: pointer;
+    background-color: #CCC;
+}
+button.left-col-button.active {
+    background: #FEFEFE;
+    padding: 12px 15px;
+    opacity: 1;
+}
+
+
+.main-col {
+    background: #F3F3F3;
+    flex: auto;
+    padding: 15px;
+    position: relative;
+    padding-top: 68px;
+    display: flex;
+    flex-flow: column;
+    margin-left: 200px;
+    overflow-y: scroll;
+}
+.main-col .content-title {
+    position: absolute;
+    top: 22px;
+    font-size: 22px;
+    left: 40px;
+    font-family: Lucida Sans Unicode;
+    font-weight: 600;
+}
+
+.main-content {
+    /* min-width: 300px; */
+    /* width: 300px; */
+    padding: 25px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    background: #FFF;
+    margin-bottom: 6px;
+}
+.full-size-content {
+    /* height: 100%; */
+    box-sizing: border-box;
+}
+
+.packet-wrap {
+    padding: 3px 6px;   
+    border-radius: 4px;
+    background-color: #CCC;
+}
+
+.problem-description {
+    color: #999;
+    font-style: italic;
+}
+
+.num-input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    margin-right: 5px;
+}
+/* .num-input::placeholder {
+    
+} */
+
+.num-input-button {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    cursor: pointer;
+}
+
+.category-button {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    cursor: pointer;
+    margin-right: 9px;
+    font-family: Lucida Sans Unicode;
+}
+.category-button.active {
+    background: rgb(53, 90, 160);
+    color: #FFF;
+}
+.category-button:hover {
+    opacity: 0.8;
+}
+
+.num-input-button:active {
+    background-color: grey;
+}
+.category-button:active {
+    background-color: grey;
+}
+
+.word-matrix-row {
+    display: flex;
+}
+
+.word-matrix-cell {
+    padding: 3px 6px;
+    border-radius: 4px;
+    background-color: #CCC;
+    min-width: 13px;
+    margin: 1px;
+    text-align: center;
+}
+
+.same-width{
+    font-family: Courier;
+}
+
+.out-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 8px;
+    font-family: tahoma;
+}
+
+.visibility-button-row {
+    margin-bottom: 18px;
+}
+
+.visibility-button {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #AAA;
+    margin-right: 4px;
+    cursor: pointer;
+    font-family: Lucida Sans Unicode;
+}
+
+.visibility-button:hover {
+    opacity: 0.8;
+}
+.visibility-button:active {
+    background-color: grey;
+}
+
+.question-row {
+    margin-bottom: 8px;
+    background: #EFEFEF;
+    padding: 6px 8px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 3px #0004;
+    cursor: pointer;
+    /* min-height: 28px; */
+    /* font-family: Lucida Sans Unicode; */
+    font-family: tahoma;
+}
+.question-row:hover {
+    background: #E5E5E5;
+}
+
+.question-row-question {
+    color: #000;
+}
+
+.question-row-question.bold {
+    font-weight: bold;
+}
+
+.question-row-answer {
+    margin-left: 10px;
+    padding-top: 2px;
+    color: #84181e;
+}
+
+
+
+

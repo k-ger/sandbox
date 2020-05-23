@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="interviewprep.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="left-col red-back">
+        <p>
+            Interview Prep
+        </p>
+
+        <div><button type="button" id="topic-button-1" class="left-col-button active" onclick="selectCNet()">C# .NET</button></div>
+        <div><button type="button" id="topic-button-2" class="left-col-button" onclick="selectAngular()">Angular</button></div>
+        <div><button type="button" id="topic-button-3" class="left-col-button" onclick="selectJS()">JS, Web, DOM</button></div>
+        <div><button type="button" id="topic-button-4" class="left-col-button" onclick="selectSQL()">SQL Server</button></div>
+        <div><button type="button" id="topic-button-5" class="left-col-button" onclick="selectGeneral()">General</button></div>
+    </div>
+    <div class="main-col">
+        <div class="out-link">
+            <a href="jspractice.html">JS Practice</a>
+        </div>
+        <div class="content-title">
+
+        </div>
+        <div class="main-content" id="main">
+            <button type="button" id="tab-button-1" class="category-button active" onclick="selectQuestions()">Common Questions</button>
+            <button type="button" id="tab-button-2" class="category-button" onclick="selectLinks()">Links</button>
+            <button type="button" id="tab-button-3" class="category-button" onclick="selectFiddle()">Fiddle</button>
+        </div>
+
+        <div class="main-content full-size-content" id="main2">
+        </div>
+
+    </div>
+
+</body>
+
+</html>
