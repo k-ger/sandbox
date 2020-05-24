@@ -1,17 +1,15 @@
 body {
-    height: 100vh;
     display: flex;
     margin: 0;
+    background: #F3F3F3;
 }
-
-#mapid { height: 400px; }
 
 .hide {
     display: none;
 }
 
 .left-col {
-    height: 100%;
+    height: 100vh;
     width: 200px;
     padding: 15px;
     color: #EEE;
@@ -19,7 +17,6 @@ body {
     flex-shrink: 0;
     box-shadow: 2px 2px 4px #000A;
     z-index: 1;
-    position: fixed;
 }
 
 .left-col > p {
@@ -63,28 +60,20 @@ button.left-col-button.active {
 
 
 .main-col {
-    background: #F3F3F3;
     flex: auto;
     padding: 15px;
-    position: relative;
-    padding-top: 68px;
-    display: flex;
-    flex-flow: column;
-    margin-left: 200px;
-    overflow-y: scroll;
+    overflow-y: auto;
+    max-height: 100vh;
+    box-sizing: border-box;
 }
 .main-col .content-title {
-    position: absolute;
-    top: 22px;
+    padding: 13px 25px;
     font-size: 22px;
-    left: 40px;
     font-family: Lucida Sans Unicode;
     font-weight: 600;
 }
 
 .main-content {
-    /* min-width: 300px; */
-    /* width: 300px; */
     padding: 25px;
     border: 1px solid #CCC;
     border-radius: 5px;
@@ -92,7 +81,6 @@ button.left-col-button.active {
     margin-bottom: 6px;
 }
 .full-size-content {
-    /* height: 100%; */
     box-sizing: border-box;
 }
 
@@ -199,8 +187,7 @@ button.left-col-button.active {
     border-radius: 4px;
     box-shadow: 1px 1px 3px #0004;
     cursor: pointer;
-    /* min-height: 28px; */
-    /* font-family: Lucida Sans Unicode; */
+    white-space: normal;
     font-family: tahoma;
 }
 .question-row:hover {
