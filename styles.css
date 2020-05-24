@@ -11,6 +11,11 @@
         flex-shrink: unset!important;
     }  
 
+    .main-col {
+        overflow-y: unset!important;
+        max-height: unset!important;
+    }
+
     .nav-links-container {
         display: flex;
         flex-wrap: wrap;
