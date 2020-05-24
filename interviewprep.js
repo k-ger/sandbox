@@ -77,6 +77,7 @@ const selectQuestions = (topicId) => {
     let btnDiv = document.createElement('div');
     btnDiv.classList = 'visibility-button-row';
     let btnShowAll = document.createElement('button');
+    btnShowAll.id='show-all-btn';
     btnShowAll.classList = 'visibility-button';
     btnShowAll.setAttribute('type', 'button');
     btnShowAll.innerText = 'Show All';
@@ -87,11 +88,14 @@ const selectQuestions = (topicId) => {
                 a.classList.remove('hide');
             }
         });
+        document.querySelector('#show-all-btn').classList.add('hide');
+        document.querySelector('#hide-all-btn').classList.remove('hide');
     });
     btnDiv.appendChild(btnShowAll);
 
     let btnHideAll = document.createElement('button');
-    btnHideAll.classList = 'visibility-button';
+    btnHideAll.id = 'hide-all-btn';
+    btnHideAll.classList = 'visibility-button hide';
     btnHideAll.setAttribute('type', 'button');
     btnHideAll.innerText = 'Hide All';
     btnHideAll.addEventListener('click', () => {
@@ -101,6 +105,8 @@ const selectQuestions = (topicId) => {
                 a.classList.add('hide');
             }
         });
+        document.querySelector('#hide-all-btn').classList.add('hide');
+        document.querySelector('#show-all-btn').classList.remove('hide');
     });
     btnDiv.appendChild(btnHideAll);
     MAIN_DIV2.appendChild(btnDiv);
