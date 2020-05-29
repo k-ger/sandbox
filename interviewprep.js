@@ -375,7 +375,6 @@ const populateQuestions = () => {
         <br> -When you pass a reference object as a parameter or assign it to a variable, you're in fact passing its reference. The reference (not the referenced object) can be allocated both on the stack or on the heap.
         <br> -Value types (derived from System.ValueType, e.g. int, bool, char, enum and any struct) can be allocated on the heap or on the stack, depending on where they were declared.
         <br> -While the objects stored on the stack are gone when the containing stack frame is popped, memory used by objects stored on the heap needs to be freed up by the garbage collector.
-
         `,
         1
     ));
@@ -458,10 +457,20 @@ const populateQuestions = () => {
     questions.push(new Question(
         `Dispose vs Finalize!`,
         `Dispose method is for disposing objects in .NET. - releasing resources, prevent memory leaks.
-        GC can reclaim or release only memory which is used by managed resources. (DB connection = not managed resource)</br>
+        GC can reclaim or release only memory which is used by managed resources. (File handles, DB connections = not managed resources)</br>
         Finalize method also called destructor to the class. 
-        Finalize method can not be called explicitly in the code. Only Garbage collector can call the Finalize when object become inaccessible. 
-        One should not implement the Finalize method until it is absolutely necessary.`,
+        Finalize method can not be called explicitly in the code. Only Garbage collector can call the Finalizer when object becomes inaccessible.
+        Typically, only use Finalizer for cleanup of unmanaged resources.
+        Finalizers of objects will be called in non-deterministic order, so Finalizer should not have references to objects that may be getting Finalized.
+        </br> Use Finalizer to let CLR determine when to do cleanup, use Disposable pattern when you want it sooner (right now).
+        One should not implement the Finalize method until it is absolutely necessary.
+        `,
+        1
+    ));
+    questions.push(new Question(
+        `What does using statement do?`,
+        `Using statement, when used with parentheses, compiles to a try/finally block.  Inside finally, .Dispose() is called on the object in parentheses.
+        This object must implement IDisposable.  This way, you can have the object disposed at the earliest available time after execution leaves the 'using' block.`,
         1
     ));
     questions.push(new Question(
@@ -473,9 +482,19 @@ const populateQuestions = () => {
         1
     ));
     questions.push(new Question(
+        `What Thread Synchronization constructs do you know?`,
+        `- Lock (Monitor class)
+        </br>- Mutex: mutually exclusive sunc object that can be acquired by 1 and only 1 thread at a time.
+        </br>- Semaphore: similar to mutex but it can grant more than 1 thread access to a shared resource at a time. (Gate with # of permits).
+        </br>- MethodImplAttribute: used on an entire method. Must not be used on a public object of with a public class.
+        `,
+        1
+    ));
+    questions.push(new Question(
         `What's the difference between const and readonly?`,
         `A const field can only be initialized at the declaration of the field. A readonly field can be initialized either at the declaration or in a constructor. 
         Therefore, readonly fields can have different values depending on the constructor used. 
+        Readonly can be declared but not initialized, then initialized (i.e. in constructor).  Const must be initialized where declared.
         Also, although a const field is a compile-time constant, the readonly field can be used for run-time constants, as in this line: <code>public static readonly uint l1 = (uint)DateTime.Now.Ticks;</code>
         </br>Const cannot be static, but readonly can.`,
         1
@@ -502,9 +521,15 @@ const populateQuestions = () => {
         1
     ));
     questions.push(new Question(
+        `Difference between Foreground and Background Threads?`,
+        `By default, threads you create explicitly are foreground threads. Foreground threads keep the application alive for as long as any one of them is running, 
+        whereas background threads do not. Once all foreground threads finish, the application ends, and any background threads still running abruptly terminate.`,
+        1
+    ));
+    questions.push(new Question(
         `Why are strings immutable?`,
         `It provides automatic thread safety, and makes strings behave like an intrinsic type in a simple, effective manner. It also allows for extra efficiencies at runtime 
-        (such as allowing effective string interning to reduce resource usage), and has huge security advantages.`,
+        (such as allowing effective string interning to reduce resource usage), and has huge security advantages.  Also strings are arrays of char, so arr size is immutable.`,
         1
     ));
     questions.push(new Question(
@@ -664,7 +689,7 @@ const populateQuestions = () => {
         2
     ));
     questions.push(new Question(
-        `What are the 2 different types of forms in Angular? Diffenrences?`,
+        `What are the 2 different types of forms in Angular? Differences?`,
         `Template-Driven and Reactive Forms:
         </br>- Template-driven forms make use of the "FormsModule", while reactive forms are based on "ReactiveFormsModule".
         </br>- Template-driven forms are asynchronous in nature, whereas Reactive forms are mostly synchronous.
@@ -772,7 +797,7 @@ const populateQuestions = () => {
         3
     ));
     questions.push(new Question(
-        `What is variable hoisting?  What gets hoiseted and what doesn't?`,
+        `What is variable hoisting?  What gets hoisted and what doesn't?`,
         `Hoisting: initialized with undefined before the code is run.  This means they are accessible in their enclosing scope even before they are declared.
         Function declarations and <code>var</code> will get hoisted.`,
         3
@@ -922,6 +947,19 @@ const populateQuestions = () => {
         4
     ));
     questions.push(new Question(
+        `What's the difference between a View and a Table?`,
+        `Tables contain data, a View is a "virtual" table - stored in schema, but no data stored.  Views abstract data, can support security by not returning all cols of all tables.
+        Views reduce complexity: can define complex query as view, then reuse the view.  Can index views, but you will need to update these indexes 
+        every time you modify the underlying tables.  Cannot <code>ORDER BY</code> in views. `,
+        4
+    ));
+    questions.push(new Question(
+        `Benefits of SPs over queries?`,
+        `SPs don't necessarily increase performance over regular queries, since both types are cached and pre-compiled.  
+        SPs can have security set on them.  Queries (in middle tier or elsewhere) expose schema - another securtiy risk.  SPs also reduce network traffic.`,
+        4
+    ));
+    questions.push(new Question(
         `Difference between a temp table and a table variable?`,
         `- Temp tables can be modified (ALTER CREATE DELETE), table variables cannot.  Table variables cannot be dropped explicitly, only automatically.
         </br>- Temp tables not allowed to be defined in UDFs, table variables allowed.
@@ -986,6 +1024,14 @@ const populateQuestions = () => {
         `- When composite index and WHERE clause doesn't contain the first col of the index.</br>
         - When index on VARCHAR and col is compared to a string starting with '% or '_'. 
         </br>Ex: <code>WHERE val LIKE '%asdf%'</code>`,
+        4
+    ));
+    questions.push(new Question(
+        `What is parameter sniffing?`,
+        `SQL Server uses a process called parameter sniffing when it executes stored procedures that have – you guessed it – parameters. 
+        When the procedure is compiled or recompiled, the value passed into the parameter is evaluated and used to create an execution plan. 
+        That value is then stored with the execution plan in the plan cache. On subsequent executions, that same value – and same plan – is used.
+        Performance issues can occur when the set of parameters that the execution plan was optimized for ends up being drastically different than the parameters that are being passed in right now.`,
         4
     ));
     questions.push(new Question(
