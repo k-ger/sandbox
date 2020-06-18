@@ -542,6 +542,18 @@ const populateQuestions = () => {
         1
     ));
     questions.push(new Question(
+        `What are constraints and how are they used?`,
+        `Your generic code needs some way to know what public methods and properties your T object has.  Constraints support this, using <code>where</code> clause:
+        </br><code>class MyGenericClass<<T>T> where T : <i>constraint</i> {...</code>
+        </br></br><strong>Base Class Constriant</strong> - Specify a base class that the type argument must inherit.
+        </br></br><strong>Interface Constriant</strong> - Require that one or more interfaces be implemented by a type argument.  More than 1 Interface can be stated using a comma-separated list.
+        </br></br><strong>Constructor (New) Constriant</strong> - Require that the type argument supply a parameterless constructor.  Specified by: <strong>new()</strong>.
+        </br></br><strong>Reference Type Constriant</strong> - Require that the type argument be a reference type. Specified by: <strong>class</strong>.
+        </br></br><strong>Value Type Constriant</strong> - Require that the type argument be a value type. Specified by: <strong>struct</strong>.
+        `,
+        1
+    ));
+    questions.push(new Question(
         `What is Volatile?`,
         `The volatile keyword indicates that a field might be modified by multiple threads that are executing at the same time. The compiler, the runtime system, 
         and even hardware may rearrange reads and writes to memory locations for performance reasons. Fields that are declared volatile are not subject to these optimizations. 
@@ -700,6 +712,20 @@ const populateQuestions = () => {
         `,
         2
     ));
+    questions.push(new Question(
+        `How does change detection work in Angular?`,
+        `At startup, Angular patches (overrides) several low-level browser APIs to be able to detect changes in the application.  It adds event listeners to them, and performs change detection on these events.
+        This is done using Zone.js. A zone is an execution context.  By default, Angular Change Detection works by checking tif the value of the template expressions have changed.
+        By default, it does not do deep object comparison to detect changes, it only takes into account properties used by the template.'`,
+        2
+    ));
+    questions.push(new Question(
+        `What triggers change detection in Angular?`,
+        `1. Any browser event: click, keyup, etc...
+        </br>2. setInterval(), setTimeout()
+        </br>3. HTTP Request vie XMLHttpRequest`,
+        2
+    ));
     // questions.push(new Question(
     //     `?`,
     //     ``,
@@ -743,6 +769,16 @@ const populateQuestions = () => {
         </br>The developer of an app does not need to store (or manage) user logins/pwds.
         </br>- MFA: Multi-factor
         </br>- JWT: JSON Web Token`,
+        3
+    ));
+    questions.push(new Question(
+        `What are the principles of REST?`,
+        `1. <strong>Client–server</strong> – By separating the user interface concerns from the data storage concerns, we improve the portability of the user interface across multiple platforms and improve scalability by simplifying the server components.
+        </br></br>2. <strong>Stateless</strong> – Each request from client to server must contain all of the information necessary to understand the request, and cannot take advantage of any stored context on the server. Session state is therefore kept entirely on the client.
+        </br></br>3. <strong>Cacheable</strong> – Cache constraints require that the data within a response to a request be implicitly or explicitly labeled as cacheable or non-cacheable. If a response is cacheable, then a client cache is given the right to reuse that response data for later, equivalent requests.
+        </br></br>4. <strong>Uniform interface</strong> – By applying the software engineering principle of generality to the component interface, the overall system architecture is simplified and the visibility of interactions is improved. In order to obtain a uniform interface, multiple architectural constraints are needed to guide the behavior of components. REST is defined by four interface constraints: identification of resources; manipulation of resources through representations; self-descriptive messages; and, hypermedia as the engine of application state.
+        </br></br>5. <strong>Layered system</strong> – The layered system style allows an architecture to be composed of hierarchical layers by constraining component behavior such that each component cannot “see” beyond the immediate layer with which they are interacting.
+        </br></br>6. <strong>Code on demand</strong> (optional) – REST allows client functionality to be extended by downloading and executing code in the form of applets or scripts. This simplifies clients by reducing the number of features required to be pre-implemented.`,
         3
     ));
     questions.push(new Question(
@@ -856,6 +892,21 @@ const populateQuestions = () => {
         `What is a blob?`,
         `The Blob object represents a blob, which is a file-like object of immutable, raw data; 
         they can be read as text or binary data, or converted into a ReadableStream so its methods can be used for processing the data.`,
+        3
+    ));
+    questions.push(new Question(
+        `What is event bubbling?`,
+        `<strong>Event Flow</strong> - Event flow is the order in which event is received on the web page. If you click on an element like on div or on the button, which is nested to other elements,
+         before the click is performed on the target element, it must trigger the click event each of its parent elements first, starting at the top with the global window object. 
+         By default, every element of HTML is child of the window object.
+        
+        </br></br><strong>Event Bubbling</strong> - When an event is raised on an element, it bubbles up to the next element (parent), and if there is an event listener registered, the callback will be fired,
+        and this process will continue all the way up.  Use <code>stopPropagation()</code> to stop event from bubbling.`,
+        3
+    ));
+    questions.push(new Question(
+        `What's the difference between currentTarget property and target property in JS?`,
+        `<strong>Target</strong> is the element that triggered the event (e.g., the user clicked on), <strong>currentTarget</strong> is the element that the event listener is attached to.`,
         3
     ));
     questions.push(new Question(
