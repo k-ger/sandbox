@@ -371,10 +371,10 @@ const populateQuestions = () => {
         `Stack and Heap.  What are they, what are they for, what's the difference between them.`,
         `Places in memory where an object can be stored. </br>
         - Objects allocated on the stack are available only inside of a stack frame (execution of a method), while objects allocated on the heap can be accessed from anywhere.
-        <br> -Reference types (classes, interfaces, delegates) are always allocated on the heap.
-        <br> -When you pass a reference object as a parameter or assign it to a variable, you're in fact passing its reference. The reference (not the referenced object) can be allocated both on the stack or on the heap.
-        <br> -Value types (derived from System.ValueType, e.g. int, bool, char, enum and any struct) can be allocated on the heap or on the stack, depending on where they were declared.
-        <br> -While the objects stored on the stack are gone when the containing stack frame is popped, memory used by objects stored on the heap needs to be freed up by the garbage collector.
+        <br>- Reference types (classes, interfaces, delegates) are always allocated on the heap.
+        <br>- When you pass a reference object as a parameter or assign it to a variable, you're in fact passing its reference. The reference (not the referenced object) can be allocated both on the stack or on the heap.
+        <br>- Value types (derived from System.ValueType, e.g. int, bool, char, enum and any struct) can be allocated on the heap or on the stack, depending on where they were declared.
+        <br>- While the objects stored on the stack are gone when the containing stack frame is popped, memory used by objects stored on the heap needs to be freed up by the garbage collector.
         `,
         1
     ));
@@ -384,7 +384,7 @@ const populateQuestions = () => {
         A thread is a "subset of a process" or a "path of execution through a process".  
         </br>A Task can create 1 or more threads. (Thread pool threads).
         </br>A task can return a result. There is no direct mechanism to return a result from a thread.
-        Task supports cancellation through the use of cancellation tokens. Thread doesn't.`,
+        </br>Task supports cancellation through the use of cancellation tokens. Thread doesn't.`,
         1
     ));
     questions.push(new Question(
@@ -419,6 +419,12 @@ const populateQuestions = () => {
         1
     ));
     questions.push(new Question(
+        `How do you force GC and when is it a good idea to do so?`,
+        `Force GC like this: <code>System.GC.Collect</code>.  Do this right after de-referencing a large number of objects.  
+        Also, when testing: calling GC will show you if memory leaks exist - if objects you intended to have collected remain.`,
+        1
+    ));
+    questions.push(new Question(
         `When a struct is inside a class, where is memory allocated for it (stack or heap?)`,
         `Heap`,
         1
@@ -428,7 +434,7 @@ const populateQuestions = () => {
         `Array: simplest, least overhead.  Use when the size is fixed, and you know the size ahead of time. Traverse by index, or forward one by one.
         List: more overhead than array.  Can insert/remove easier. Can scale with addition of new elements. Traverse by index, or forward one by one.
         Dictionary: generic HashTable.  Stores Key Value pairs.  Fast and efficient.  Duplicate keys forbidden.  Traverse by foreach or by key.  Order items were added in is not preserved,
-        but that is needed, use OrderedDictionary.  If sort is important, use SortedDictionary.`,
+        but if that is needed, use OrderedDictionary.  If sort is important, use SortedDictionary.`,
         1
     ));
     questions.push(new Question(
@@ -448,21 +454,23 @@ const populateQuestions = () => {
     ));
     questions.push(new Question(
         `What is Yield in C#?`,
-        `	Yield return is .NET syntax sugar to return an IEnumerable. Allows the creation of items as it is demanded.
+        `<code>Yield return</code> is .NET syntax sugar to return an IEnumerable. Allows the creation of items as it is demanded.
         Iteration. It creates a state machine "under the covers" that remembers where you were on each additional cycle of the function and picks up from there.
-        It helps to provide custom iteration without creating temp collections.
-        It helps to do stateful iteration. `,
+        It helps to provide custom iteration without creating temp collections. It helps to do stateful iteration.  
+        The first advantage of doing this vs returning an entire set is when your application is working on multiple gigabytes or even terrabytes of data, 
+        and the second is when you have chained together multiple queries that result in different manipulations of the dataset.
+        </br></br>In short: the yield statement creates a state machine for an enumerator.`,
         1
     ));
     questions.push(new Question(
         `Dispose vs Finalize!`,
         `Dispose method is for disposing objects in .NET. - releasing resources, prevent memory leaks.
-        GC can reclaim or release only memory which is used by managed resources. (File handles, DB connections = not managed resources)</br>
+        GC can reclaim or release only memory which is used by managed resources. (File handles, DB connections, network connections = NOT managed resources)</br>
         Finalize method also called destructor to the class. 
         Finalize method can not be called explicitly in the code. Only Garbage collector can call the Finalizer when object becomes inaccessible.
         Typically, only use Finalizer for cleanup of unmanaged resources.
         Finalizers of objects will be called in non-deterministic order, so Finalizer should not have references to objects that may be getting Finalized.
-        </br> Use Finalizer to let CLR determine when to do cleanup, use Disposable pattern when you want it sooner (right now).
+        </br> Use Finalizer to let CLR determine when to do cleanup, use Disposable pattern when you want it sooner (right now, deterministic).
         One should not implement the Finalize method until it is absolutely necessary.
         `,
         1
@@ -484,7 +492,7 @@ const populateQuestions = () => {
     questions.push(new Question(
         `What Thread Synchronization constructs do you know?`,
         `- Lock (Monitor class)
-        </br>- Mutex: mutually exclusive sunc object that can be acquired by 1 and only 1 thread at a time.
+        </br>- Mutex: mutually exclusive sync object that can be acquired by 1 and only 1 thread at a time.
         </br>- Semaphore: similar to mutex but it can grant more than 1 thread access to a shared resource at a time. (Gate with # of permits).
         </br>- MethodImplAttribute: used on an entire method. Must not be used on a public object of with a public class.
         `,
@@ -496,7 +504,19 @@ const populateQuestions = () => {
         Therefore, readonly fields can have different values depending on the constructor used. 
         Readonly can be declared but not initialized, then initialized (i.e. in constructor).  Const must be initialized where declared.
         Also, although a const field is a compile-time constant, the readonly field can be used for run-time constants, as in this line: <code>public static readonly uint l1 = (uint)DateTime.Now.Ticks;</code>
-        </br>Const cannot be static, but readonly can.`,
+        </br>Const cannot be static, but readonly can.
+        </br></br>
+        Const can be: 
+        </br>- Number
+        </br>- String
+        </br>- Bool
+        </br>- Null reference
+        </br></br>
+        Readonly can be:
+        </br>- Field declaration
+        </br>- Readonly struct declaration
+        </br>- Readonly member definition
+        </br>- Ref read only method return`,
         1
     ));
     questions.push(new Question(
@@ -517,7 +537,16 @@ const populateQuestions = () => {
     ));
     questions.push(new Question(
         `Can you lock on a value type?`,
-        `No - because it's a stack variable and doesn't have a sync root record.`,
+        `No - because it's a stack variable and doesn't have a sync root record.  Lock is syntax sugar for Monitor.Enter, Exit, and they accept an object. 
+        If you try to pass a value type, it will need to be boxed, and that creates a new object each time.`,
+        1
+    ));
+    questions.push(new Question(
+        `What are some guidelines for locking?`,
+        `Avoid locking on anything publicly accessible - use private or just <code>object myLocker = new object();</code>.  Lock on a reference type.  
+        Check (re-check) state at the beginning of the lock block because you don't know how long it takes between encountering lock statement and acquiring the lock.
+        The variable should live in the same scope as the methods where you use it for locking. 
+        If the methods are static, the variable should be static, and if the methods are instance methods, the variable should be an instance varible.`,
         1
     ));
     questions.push(new Question(
@@ -530,6 +559,14 @@ const populateQuestions = () => {
         `Why are strings immutable?`,
         `It provides automatic thread safety, and makes strings behave like an intrinsic type in a simple, effective manner. It also allows for extra efficiencies at runtime 
         (such as allowing effective string interning to reduce resource usage), and has huge security advantages.  Also strings are arrays of char, so arr size is immutable.`,
+        1
+    ));
+    questions.push(new Question(
+        `What members can an Interface have?`,
+        `- Properties
+        </br>- Methods
+        </br>- Events
+        </br>- Indexers`,
         1
     ));
     questions.push(new Question(
