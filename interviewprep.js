@@ -784,7 +784,7 @@ const populateQuestions = () => {
             If your service operations are stateful: For example, you store information/data on a request and use that stored data on the next one.
         </br>
         </br>- SOAP uses XML, while REST can use JSON, XML, RSS.  
-        </br>- REST is stateless, SOAP can be stateless of stateful.  
+        </br>- REST is stateless, SOAP can be stateless or stateful.  
         </br>- SOAP uses only HTTP POST.  REST uses many verbs (GET POST PUT DELETE...)
         </br></br>
         <a href="https://restfulapi.net/soap-vs-rest-apis/" target="_blank">More here..</a>
@@ -795,7 +795,7 @@ const populateQuestions = () => {
         `How do you authenticate users? (What are the different types of authentication?)`,
         `Authentication = determining identity.  
         </br>Types:
-        </br>- Basic authentication: challenge/response format. Server will request a secure resource from server, server will challenge client to authenticate,
+        </br>- Basic authentication: challenge/response format. Client will request a secure resource from server, server will challenge client to authenticate,
         and client will request back with credentials to auth. 
         </br>- Digest authentication: Same as above, but server challenges by responding with a <strong>nonce</strong>. This is an arbitrary number that can only be used once.  
         Client sends a digest of the password - computed using hashing algo with a nonce that the server provides.
@@ -861,7 +861,7 @@ const populateQuestions = () => {
         `Prototypal Inheritance.</br>
         When it comes to inheritance, JavaScript only has one construct: objects. Each object has a private property which holds a link to another object called its prototype. 
         That prototype object has a prototype of its own, and so on until an object is reached with null as its prototype. By definition, null has no prototype, and acts as the final link in this prototype chain.
-        </br>ES2015 introduced classes to JS.`,
+        JS doesn't support multiple inheritance.  </br>ES2015 introduced classes to JS.`,
         3
     ));
     questions.push(new Question(
@@ -901,7 +901,7 @@ const populateQuestions = () => {
         </br>- An observable is like a stream which allows passing zero or more events where the callback is called for each event. Whereas, A promise eventually calls the success or failed callback even when you don’t need the notification or the result it provides anymore.
         </br>- Observable works with multiple values for a particular time. Whereas, Promises works with and even returns a single value at a time.
         </br>- Observables can be canceled. Whereas, Promises cannot be canceled.
-        </br>- Observable supports map, filter, reduce and similar operators. Whereas, Promises have more readable codes with try/catch and async/await.
+        </br>- Observable supports map, filter, reduce and similar operators. Whereas, Promises have more readable code with try/catch and async/await.
         </br>- In observable, one operator ‘retry’ can be used to retry whenever needed. Whereas, Promises cannot be retried. A promise should have access to the original function that returned the promise in order to have a retry capability.
         `,
         3
@@ -1042,6 +1042,25 @@ const populateQuestions = () => {
         4
     ));
     questions.push(new Question(
+        `What's the difference between a View and a Stored Proc?  When to use which?`,
+        `A <strong>Stored Procedure</strong>:
+        </br>    
+        </br>- Accepts parameters
+        </br>- Can NOT be used as building block in a larger query
+        </br>- Can contain several statements, loops, IF ELSE, etc.
+        </br>- Can perform modifications to one or several tables
+        </br>- Can NOT be used as the target of an INSERT, UPDATE or DELETE statement.
+        </br></br>A <strong>View</strong>:
+        </br>
+        </br>- Does NOT accept parameters
+        </br>- Can be used as building block in a larger query
+        </br>- Can contain only one single SELECT query
+        </br>- Can NOT perform modifications to any table
+        </br>- But can (sometimes) be used as the target of an INSERT, UPDATE or DELETE statement.
+        `,
+        4
+    ));
+    questions.push(new Question(
         `Benefits of SPs over queries?`,
         `SPs don't necessarily increase performance over regular queries, since both types are cached and pre-compiled.  
         SPs can have security set on them.  Queries (in middle tier or elsewhere) expose schema - another securtiy risk.  SPs also reduce network traffic.`,
@@ -1051,7 +1070,7 @@ const populateQuestions = () => {
         `Difference between a temp table and a table variable?`,
         `- Temp tables can be modified (ALTER CREATE DELETE), table variables cannot.  Table variables cannot be dropped explicitly, only automatically.
         </br>- Temp tables not allowed to be defined in UDFs, table variables allowed.
-        </br>- Temp tables support indeces, table variables only support a PK or unique Key, no other indeces.
+        </br>- Temp tables support indices, table variables only support a PK or unique Key, no other indices.
         </br>- Scope of temp table is in the proc it was created in, and children procs of that proc.  Table variable scope is
         the batch or proc it was declared in.
         `,
@@ -1094,14 +1113,15 @@ const populateQuestions = () => {
         `SQL Server statistics are essential for the query optimizer to prepare an optimized and cost-effective execution plan. 
         These statistics provide distribution of column values to the query optimizer, and it helps SQL Server to estimate the number of rows (also known as cardinality). 
         The query optimizer should be updated regularly. Improper statistics might mislead query optimizer to choose costly operators such as index scan over index 
-        seek and it might cause high CPU, memory and IO issues in SQL Server. We might also face blocking, deadlocks that eventually causes trouble to the underlying queries, resources. 
+        seek and it might cause high CPU, memory and IO issues in SQL Server.  
         </br>Update manually with <code>sp_update</code>
         `,
         4
     ));
     questions.push(new Question(
         `What is Read Committed? Serializable?`,
-        `Sql server Transaction Isolation Level.  Read Committed (default setting) means that no dirty reads guaranteed, but no other guarantees.
+        `Sql server Transaction Isolation Level.  Read Committed (default setting) means that no dirty reads guaranteed 
+        (e.g. when a transaction is allowed to read a row that has been modified by an another transaction which is not committed yet), but no other guarantees.
         Rows locked only while reading, and released after each is read.</br></br>
         Serializable is the most strict and safest, but worst performing Isolation Level.  Guarantees no dirty, nonrepeatable, or phantom reads.
         Locks cover entire range of rows and first row outside it.  If a query is repeated within the same transaction, results will be the same.`,
@@ -1116,7 +1136,7 @@ const populateQuestions = () => {
     ));
     questions.push(new Question(
         `What is parameter sniffing?`,
-        `SQL Server uses a process called parameter sniffing when it executes stored procedures that have – you guessed it – parameters. 
+        `SQL Server uses a process called parameter sniffing when it executes stored procedures that have parameters. 
         When the procedure is compiled or recompiled, the value passed into the parameter is evaluated and used to create an execution plan. 
         That value is then stored with the execution plan in the plan cache. On subsequent executions, that same value – and same plan – is used.
         Performance issues can occur when the set of parameters that the execution plan was optimized for ends up being drastically different than the parameters that are being passed in right now.`,
