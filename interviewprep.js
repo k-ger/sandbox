@@ -388,7 +388,7 @@ const populateQuestions = () => {
         1
     ));
     questions.push(new Question(
-        `Write a singleton without using a lock`,
+        `Write a singleton without using a lock.`,
         `<code>sealed class Singleton</br>
         {</br>
         &emsp;    private static readonly Singleton instance = new Singleton();</br>
@@ -463,6 +463,17 @@ const populateQuestions = () => {
         1
     ));
     questions.push(new Question(
+        `How is dependency injection typically done in .NET Core?`,
+        `ASP.NET Core provides a built-in service container, <strong>IServiceProvider</strong>. Services are registered in the app's <strong>Startup.ConfigureServices</strong> method.
+        Services are typically resolved from DI using constructor injection. With constructor injection, a class declares a constructor parameter of either the required type or an interface. 
+        The DI framework provides an instance of this service at runtime. You can register services as Transient, Scoped, or Singleton:
+        </br>- Transient objects are always different; a new instance is provided to every controller and every service.
+        </br>- Scoped objects are the same within a request, but different across different requests.    
+        </br>- Singleton objects are the same for every object and every request.
+        `,
+        1
+    ));  
+    questions.push(new Question(
         `Dispose vs Finalize!`,
         `Dispose method is for disposing objects in .NET. - releasing resources, prevent memory leaks.
         GC can reclaim or release only memory which is used by managed resources. (File handles, DB connections, network connections = NOT managed resources)</br>
@@ -476,7 +487,7 @@ const populateQuestions = () => {
         1
     ));
     questions.push(new Question(
-        `What does using statement do?`,
+        `What does the <strong>using</strong> statement do?`,
         `Using statement, when used with parentheses, compiles to a try/finally block.  Inside finally, .Dispose() is called on the object in parentheses.
         This object must implement IDisposable.  This way, you can have the object disposed at the earliest available time after execution leaves the 'using' block.`,
         1
@@ -732,6 +743,31 @@ const populateQuestions = () => {
         2
     ));
     questions.push(new Question(
+        `What are ngModules and how are they used?`,
+        `A class with an NgModule decorator. Its purpose:
+        </br>-	Organize the pieces of our application
+        </br>-	Arrange them into blocks
+        </br>-	Extend our application with capabilities from external libraries
+        </br>-	Provide a template resolution environment
+        </br>-	Aggregate and re-export`,
+        2
+    ));
+    questions.push(new Question(
+        `How do you lazy load Angular Modules?`,
+        `To lazy load Angular modules, use <strong><code>loadchildren</code></strong> (instead of component) in your AppRoutingModule routes configuration as follows:
+        </br></br>
+        <code>
+        const routes: Routes = [
+        </br>&emsp;    {
+        </br>&emsp;&emsp;    path: 'items',
+        </br>&emsp;&emsp;    loadChildren: () => import('./items/items.module').then(m => m.ItemsModule)
+        </br>&emsp;    }
+        </br>];
+        </code>
+        `,
+        2
+    ));
+    questions.push(new Question(
         `What is an Angular Module?  How is it different from ES Module?`,
         `<strong>ES Modules</strong> (ngModules) organize code files, modularize code, promote code reuse.
         </br><strong>Angular Modules</strong> organize application, modularize application, promote application boundaries.`,
@@ -899,7 +935,7 @@ const populateQuestions = () => {
         `What is the difference between observable and promises?`,
         `- Observable is a more powerful way of handling HTTP asynchronous requests. Whereas, A promise handles a single event when an asynchronous operation completes or fails.
         </br>- An observable is like a stream which allows passing zero or more events where the callback is called for each event. Whereas, A promise eventually calls the success or failed callback even when you don’t need the notification or the result it provides anymore.
-        </br>- Observable works with multiple values for a particular time. Whereas, Promises works with and even returns a single value at a time.
+        </br>- Observable works with multiple values for a particular time. Whereas, Promises works with and only returns a single value at a time.
         </br>- Observables can be canceled. Whereas, Promises cannot be canceled.
         </br>- Observable supports map, filter, reduce and similar operators. Whereas, Promises have more readable code with try/catch and async/await.
         </br>- In observable, one operator ‘retry’ can be used to retry whenever needed. Whereas, Promises cannot be retried. A promise should have access to the original function that returned the promise in order to have a retry capability.
@@ -1232,12 +1268,12 @@ const populateQuestions = () => {
         5
     ));    
     questions.push(new Question(
-        `What is a dependency injection?  What are benefits?`,
+        `What is dependency injection?  What are benefits?`,
         `A pattern where one object supplies the dependencies of another.  Typically the dependency is passed to the constructor of the object that depends on it.
         The dependency is typically used as a service.
         </br>Benefits: makes testing easier.  Decouples construction of dependency from construction of dependent.`,
         5
-    ));    
+    ));      
     questions.push(new Question(
         `What are Microservices?`,
         `The microservice architectural style is an approach to developing a single application as a suite of <strong>multiple small services</strong>, 
