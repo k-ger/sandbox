@@ -494,7 +494,7 @@ const populateQuestions = () => {
         `- Lock (Monitor class)
         </br>- Mutex: mutually exclusive sync object that can be acquired by 1 and only 1 thread at a time.
         </br>- Semaphore: similar to mutex but it can grant more than 1 thread access to a shared resource at a time. (Gate with # of permits).
-        </br>- MethodImplAttribute: used on an entire method. Must not be used on a public object of with a public class.
+        </br>- MethodImplAttribute: used on an entire method. Must not be used on a public object or with a public class.
         `,
         1
     ));
@@ -752,7 +752,7 @@ const populateQuestions = () => {
     questions.push(new Question(
         `How does change detection work in Angular?`,
         `At startup, Angular patches (overrides) several low-level browser APIs to be able to detect changes in the application.  It adds event listeners to them, and performs change detection on these events.
-        This is done using Zone.js. A zone is an execution context.  By default, Angular Change Detection works by checking tif the value of the template expressions have changed.
+        This is done using Zone.js. A zone is an execution context.  By default, Angular Change Detection works by checking if the value of the template expressions have changed.
         By default, it does not do deep object comparison to detect changes, it only takes into account properties used by the template.'`,
         2
     ));
@@ -796,7 +796,7 @@ const populateQuestions = () => {
         `Authentication = determining identity.  
         </br>Types:
         </br>- Basic authentication: challenge/response format. Client will request a secure resource from server, server will challenge client to authenticate,
-        and client will request back with credentials to auth. 
+        and client will respond back with credentials to auth. 
         </br>- Digest authentication: Same as above, but server challenges by responding with a <strong>nonce</strong>. This is an arbitrary number that can only be used once.  
         Client sends a digest of the password - computed using hashing algo with a nonce that the server provides.
         </br>- Windows authentication: like basic/digest, but requires windows machine as web server.
@@ -916,6 +916,16 @@ const populateQuestions = () => {
     questions.push(new Question(
         `What are Web Components?`,
         `Web Components is a suite of different technologies allowing you to create reusable custom elements — with their functionality encapsulated away from the rest of your code — and utilize them in your web apps.`,
+        3
+    ));
+    questions.push(new Question(
+        `When it comes to script tags in HTML, what's the difference between async and defer?`,
+        `When browser encounters <code>&lt;script&gt;</code> tag, it must download it and execute it before moving on to the next element of HTML.
+        This blocks the rest of the page from loading, and if the script refers to an element below it, that element will not be rendered yet.
+        Async and defer allow script to load without blocking the rendering of the page.
+        <br/><strong>Defer</strong> tells the browser that it should go on working with the page and load the script "in the background."  Deferred scripts keep their order:
+        they execute in the order they appear in HTML.
+        <strong>Async</strong> means script is completely independent: doesn't wait for other scripts.  Whatever loads first, run it.`,
         3
     ));
     questions.push(new Question(
@@ -1105,6 +1115,13 @@ const populateQuestions = () => {
         `What are CTEs?`,
         `Common Table Expression: CTE is a disposable view hence no statistics are stored and you can't create Indexes either. 
         It is just like a sub query. Can be called recursively. 
+        `,
+        4
+    ));
+    questions.push(new Question(
+        `Does the order of columns in a composite index matter?`,
+        `Yes. The most selective should be first, followed by progressively less selective cols.  If 1st col isn't included in WHERE or JOIN ON clause,
+        then even if any of the other cols are included, the index will not be leveraged. 
         `,
         4
     ));
