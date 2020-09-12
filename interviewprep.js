@@ -380,7 +380,7 @@ const populateQuestions = () => {
     ));
     questions.push(new Question(
         `Task vs Thread.  What's the difference between them.`,
-        `A task is an abstraction that represents an async opertaion. A task encapsulates the basic unit of execution.
+        `A task is an abstraction that represents an async operation. A task encapsulates the basic unit of execution.
         A thread is a "subset of a process" or a "path of execution through a process".  
         </br>A Task can create 1 or more threads. (Thread pool threads).
         </br>A task can return a result. There is no direct mechanism to return a result from a thread.
@@ -946,7 +946,9 @@ const populateQuestions = () => {
         `Explain the event loop.`,
         `The Event Loop has one simple job — to monitor the Call Stack and the Callback Queue. If the Call Stack is empty, 
         it will take the first event from the queue and will push it to the Call Stack, which effectively runs it. 
-        Such an iteration is called a tick in the Event Loop. Each event is just a function callback.`,
+        Such an iteration is called a tick in the Event Loop. Each event is just a function callback.
+        </br></br>Note that Promises and <code>await</code> are added to the Microtask queue.  All microtasks are completed before any other event handling or rendering or any other macrotask (async - settimeouts, DOM APIs) takes place.
+        There’s no UI or network event handling between microtasks: they run immediately one after another.`,
         3
     ));
     questions.push(new Question(
@@ -1192,7 +1194,10 @@ const populateQuestions = () => {
         `SQL Server uses a process called parameter sniffing when it executes stored procedures that have parameters. 
         When the procedure is compiled or recompiled, the value passed into the parameter is evaluated and used to create an execution plan. 
         That value is then stored with the execution plan in the plan cache. On subsequent executions, that same value – and same plan – is used.
-        Performance issues can occur when the set of parameters that the execution plan was optimized for ends up being drastically different than the parameters that are being passed in right now.`,
+        Performance issues can occur when the set of parameters that the execution plan was optimized for ends up being drastically different than the parameters that are being passed in right now.
+        </br><br/>
+        To overcome parameter sniffing performance issue that could occur due to forcing the same plan usage for all stored procedures parameters values we can use the WITH RECOMPLIE option in the stored procedure definition, 
+        which will force the stored procedure compilation at each execution, creating a new execution plan for each parameter value.`,
         4
     ));
     questions.push(new Question(
@@ -1322,7 +1327,7 @@ const populateQuestions = () => {
         </br></br>Continuous Delivery: an extension of CI to make sure you can release new changes to your customers quickly in a sustainable way.
         Automate release process to deploy with a single click. 
         Benefits: release more often, accelerating the feedback loop w/users.
-        </br></br>Continuous Deployment: one step further: every change that passesall stages of prod pipeline released - no human interaction.
+        </br></br>Continuous Deployment: one step further: every change that passes all stages of prod pipeline released - no human interaction.
         Benefits: develop faster since there is no need to pause for release. Releases are less risky since smaller incremental changes.`,
         5
     ));
@@ -1352,6 +1357,28 @@ const populateQuestions = () => {
         `What is a data warehouse?`,
         `A data warehouse is a system that pulls together data from many different sources within an organization for reporting and analysis. 
         The reports created from complex queries within a data warehouse are used to make business decisions.`,
+        5
+    ));
+    questions.push(new Question(
+        `What is Big O notation?`,
+        `Big O notation is used to describe the performance or complexity of an algorithm. Big O specifically describes the worst-case scenario, 
+        and can be used to describe the execution time required or the space used (e.g. in memory or on disk) by an algorithm.`,
+        5
+    ));
+    questions.push(new Question(
+        `How to swap 2 vairables without using a 3rd temp var?`,
+        `1. Algebraic approach: x = x + y; y = x - y; x = x - y; </br></br>
+        2. XOR Approach: x = x ^ y; y = x ^ y; x = x ^ y; `,
+        5
+    ));
+    questions.push(new Question(
+        `TCP vs UDP?`,
+        `TCP is a connection-oriented protocol, whereas UDP is a connectionless protocol.
+        </br>The speed for TCP is slower while the speed of UDP is faster
+        </br>TCP uses handshake protocol like SYN, SYN-ACK, ACK while UDP uses no handshake protocols
+        </br>TCP does error checking and also makes error recovery, on the other hand, UDP performs error checking, but it discards erroneous packets.
+        </br>TCP has acknowledgment segments, but UDP does not have any acknowledgment segment.
+        </br>TCP is heavy-weight, and UDP is lightweight. `,
         5
     ));
     // questions.push(new Question(
