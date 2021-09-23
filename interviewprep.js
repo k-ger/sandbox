@@ -388,6 +388,17 @@ const populateQuestions = () => {
         1
     ));
     questions.push(new Question(
+        `How do you compare objects?`,
+        `To check if 2 object references refer to the same object (same mem location), use <strong>ReferenceEquals</strong>. <code>Object.ReferenceEquals(obj1, obj2)</code>.  
+        <strong>==</strong> will do the same thing: <code>obj1 == obj2</code>.
+        </br> To check if 2 objects are equal (regardless of same reference): need to use <strong>Equals</strong>; this is an override method that your object needs to implement.  
+        You need to check the properties for equality inside of this method.  You also need to override <strong>GetHashcode()</strong>. 
+        GetHashCode is used for insertion and lookup in Dictionary and HashTable, for example. If you override the GetHashCode method, you should also override Equals, and vice versa. 
+        If your overridden Equals method returns true when two objects are tested for equality, your overridden GetHashCode method must return the same value for the two objects.
+        `,
+        1
+    ));
+    questions.push(new Question(
         `Write a singleton without using a lock.`,
         `<code>sealed class Singleton</br>
         {</br>
@@ -799,6 +810,15 @@ const populateQuestions = () => {
         </br>3. HTTP Request vie XMLHttpRequest`,
         2
     ));
+    questions.push(new Question(
+        `How does routing work in Angular?`,
+        `1. RouterLink and Router Outlet.  A link or button defines a <code>[routerLink]</code>. RouterLink has a url route assigned to it in this button/link. 
+        The component defined as the target for the route in app.routing.ts (or the routing.module.ts file of a lazy-loaded component).  The component is loaded inside of the <code>router-outlet</code> directive.
+        There can only be one <code>router-outlet</code>.
+        </br>2. Router.navigate.  The built-in Router class (ex RouterService) has a method called navigate which accepts an array of url route params.
+        `,
+        2
+    ));
     // questions.push(new Question(
     //     `?`,
     //     ``,
@@ -890,6 +910,14 @@ const populateQuestions = () => {
          </br>They are easy to develop, and debug. Then can cache local storage effectively.
          </br>Disadvantages: SEO optimization is tricky, inital download size is larger, so slow to load initially.  Requires JS to be enabled.  Less escure (XSS threat).  
          Browser history may not work if the URL doesn't change.`,
+        3
+    ));
+    questions.push(new Question(
+        `What's the difference between CSS and SCSS?`,
+        `CSS is the styling language that any browser understands to style webpages.
+        </br>SCSS is a special type of file for SASS, a program written in Ruby that assembles CSS style sheets for a browser.  
+        SASS adds lots of additional functionality to CSS like variables, nesting (indentation), import mixins, and more which can make writing CSS easier and faster.
+        </br>SCSS files are processed by the server running a web app to output traditional CSS that your browser can understand.`,
         3
     ));
     questions.push(new Question(
@@ -1229,6 +1257,18 @@ const populateQuestions = () => {
     // ));
 
     //------Other--------//
+    questions.push(new Question(
+        `What are the 4 pillars of OOP?`,
+        `- <strong>Encapsulation:</strong> bind together code and the data it manipulates. Keep both safe from outside interference/misuse.
+        Data linked together with code = black box (object).  Basic unit of encapsulation: Class.
+        </br></br>- <strong>Polymorphism:</strong> one interface, many methods.  Allows one interface to access a general class of actions. 
+        Reduces complexity by allowing compiler to decide the specific method as it applies to each situation.
+        </br></br>- <strong>Inheritance:</strong> one object acquires the properties of another.  Supports hierarchical classification.
+        Allows one object to be a more specific instance of a more general case.
+        </br></br>- <strong>Abstraction:</strong> show only essential/necessary features of an entity/object to the outside world and hide the other irrelevant information.
+        `,
+        5
+    ));
     questions.push(new Question(
         `Source control: what are some branching strategies?`,
         `- <strong>Trunk-based Development (No Branching):</strong> Trunk-based development means all developers work on the same branch, and when changes are tested and ready, 
